@@ -29,8 +29,23 @@ public static class ConfigurationUtils
         get { return configurationData.BallImpulseForce; }    
     }
 
+    public static float BallLifeTime
+    {
+        get { return configurationData.BallLifeTime; }
+    }
+
+    public static float MinSpawnTime
+    {
+        get { return configurationData.MinSpawnTime; }
+    }
+
+    public static float MaxSpawnTime
+    {
+        get { return configurationData.MaxSpawnTime; }
+    }
+
     #endregion
-    
+
     /// <summary>
     /// Initializes the configuration utils
     /// </summary>

@@ -16,6 +16,9 @@ public class ConfigurationData
     // configuration data
     float paddleMoveUnitsPerSecond = 10;
     float ballImpulseForce = 200;
+    float ballLifeTime = 10;
+    float minSpawnTime = 5;
+    float maxSpawnTime = 10;
 
     #endregion
 
@@ -39,6 +42,20 @@ public class ConfigurationData
         get { return ballImpulseForce; }    
     }
 
+    public float BallLifeTime
+    {
+        get { return ballLifeTime; }
+    }
+
+    public float MinSpawnTime
+    {
+        get { return minSpawnTime; }
+    }
+
+    public float MaxSpawnTime
+    {
+        get { return maxSpawnTime; }
+    }
     #endregion
 
     #region Constructor
@@ -94,6 +111,9 @@ public class ConfigurationData
         string[] values = csvValues.Split(','); 
         paddleMoveUnitsPerSecond = float.Parse(values[0]);
         ballImpulseForce = float.Parse(values[1]);
+        ballLifeTime = float.Parse(values[2]);
+        minSpawnTime = float.Parse(values[3]);
+        maxSpawnTime = float.Parse(values[4]);
     }
 
     #endregion
