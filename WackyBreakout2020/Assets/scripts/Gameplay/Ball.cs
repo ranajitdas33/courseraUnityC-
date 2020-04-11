@@ -11,12 +11,16 @@ public class Ball : MonoBehaviour
     Timer moveTimer;
 
     BallSpawner spawnBall;
+    HUD hud;
+    
 
-	/// <summary>
-	/// Use this for initialization
-	/// </summary>
-	void Start()
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
+    void Start()
 	{
+
+        hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUD>();
         // get refrence of componenet
         spawnBall = Camera.main.GetComponent<BallSpawner>();
 
@@ -73,14 +77,11 @@ public class Ball : MonoBehaviour
         GetComponent<Rigidbody2D>().AddForce(force);
     }
 
-    //void OnBecameInvisible()
-    //{
-    //    if (!spawnTimer.Finished)
-    //    {
-    //        Debug.Log("Working");
-    //        spawnBall.SpawnBall();
-    //    }
-    //}
+    private void OnBecameInvisible()
+    {
+        
+        hud.BallLeft(-1);
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {

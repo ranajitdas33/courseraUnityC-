@@ -7,13 +7,20 @@ using UnityEngine;
 /// </summary>
 public class Block : MonoBehaviour
 {
-	/// <summary>
-	/// Use this for initialization
-	/// </summary>
-	void Start()
-	{
-		
-	}
+    HUD hud;
+
+    public int blockPoints = 10;
+
+
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
+    virtual protected void Start()
+    {
+        // save a reference to the hud
+        hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUD>();
+       
+    }
 	
 	/// <summary>
 	/// Update is called once per frame
@@ -31,6 +38,7 @@ public class Block : MonoBehaviour
     {
         if (coll.gameObject.CompareTag("Ball"))
         {
+            hud.AddPoints(blockPoints);
             Destroy(gameObject);
         }
     }

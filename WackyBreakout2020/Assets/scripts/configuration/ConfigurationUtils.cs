@@ -44,6 +44,11 @@ public static class ConfigurationUtils
         get { return configurationData.MaxSpawnTime; }
     }
 
+    public static float BlockPoints
+    {
+        get { return configurationData.BlockPoints; }
+    }
+
     #endregion
 
     /// <summary>

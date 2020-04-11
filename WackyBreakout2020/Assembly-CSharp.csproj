@@ -66,8 +66,11 @@
     <Compile Include="Assets\scripts\configuration\ConfigurationUtils.cs" />
     <Compile Include="Assets\scripts\Gameplay\Ball.cs" />
     <Compile Include="Assets\scripts\Gameplay\Block.cs" />
+    <Compile Include="Assets\scripts\Gameplay\BonusBlock.cs" />
     <Compile Include="Assets\scripts\Gameplay\Paddle.cs" />
+    <Compile Include="Assets\scripts\HUD.cs" />
     <Compile Include="Assets\scripts\PickupEffect.cs" />
+    <Compile Include="Assets\scripts\StandardBlock.cs" />
     <Compile Include="Assets\scripts\Timer.cs" />
     <Compile Include="Assets\scripts\util\GameInitializer.cs" />
     <Compile Include="Assets\scripts\util\ScreenUtils.cs" />

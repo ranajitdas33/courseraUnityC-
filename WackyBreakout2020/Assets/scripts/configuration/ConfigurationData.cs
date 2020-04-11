@@ -19,6 +19,7 @@ public class ConfigurationData
     float ballLifeTime = 10;
     float minSpawnTime = 5;
     float maxSpawnTime = 10;
+    float blockPoints = 10;
 
     #endregion
 
@@ -55,6 +56,12 @@ public class ConfigurationData
     public float MaxSpawnTime
     {
         get { return maxSpawnTime; }
+    }
+
+    public float BlockPoints
+    {
+        get { return blockPoints; }
+
     }
     #endregion
 
@@ -114,6 +121,7 @@ public class ConfigurationData
         ballLifeTime = float.Parse(values[2]);
         minSpawnTime = float.Parse(values[3]);
         maxSpawnTime = float.Parse(values[4]);
+        blockPoints = float.Parse(values[5]);
     }
 
     #endregion
