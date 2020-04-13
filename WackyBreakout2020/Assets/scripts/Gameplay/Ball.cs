@@ -7,53 +7,81 @@ using UnityEngine;
 /// </summary>
 public class Ball : MonoBehaviour
 {
-    Timer spawnTimer;
+    // move delay timer
     Timer moveTimer;
 
-    BallSpawner spawnBall;
-    HUD hud;
-    
+    // death timer
+    Timer deathTimer;
 
-    /// <summary>
-    /// Use this for initialization
-    /// </summary>
-    void Start()
+	/// <summary>
+	/// Use this for initialization
+	/// </summary>
+	void Start()
 	{
-
-        hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUD>();
-        // get refrence of componenet
-        spawnBall = Camera.main.GetComponent<BallSpawner>();
-
-        //add spawn timer
-        spawnTimer = gameObject.AddComponent<Timer>();
-        spawnTimer.Duration = 10;
-        spawnTimer.Run();
-
-        //add move timer
+        // start move timer
         moveTimer = gameObject.AddComponent<Timer>();
         moveTimer.Duration = 1;
         moveTimer.Run();
-	}
-	
-	/// <summary>
-	/// Update is called once per frame
-	/// </summary>
-	void Update()
+
+        // start death timer
+        deathTimer = gameObject.AddComponent<Timer>();
+        deathTimer.Duration = ConfigurationUtils.BallLifeSeconds;
+        deathTimer.Run();
+    }
+
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    void Update()
 	{
-        // wait for seconds
+        // move when time is up
         if (moveTimer.Finished)
         {
             moveTimer.Stop();
             StartMoving();
         }
 
-        // create new ball and delet previous ball
-        if (spawnTimer.Finished)
+		// die when time is up
+        if (deathTimer.Finished)
         {
-            spawnBall.SpawnBall();
+            // spawn new ball and destroy self
+            Camera.main.GetComponent<BallSpawner>().SpawnBall();
             Destroy(gameObject);
         }
 	}
+
+    /// <summary>
+    /// Spawn new ball and destroy self when out of game
+    /// </summary>
+    void OnBecameInvisible()
+    {
+        // death timer destruction is in Update
+        if (!deathTimer.Finished)
+        {
+            // only spawn a new ball if below screen
+            float halfColliderHeight = 
+                gameObject.GetComponent<BoxCollider2D>().size.y / 2;
+            if (transform.position.y - halfColliderHeight < ScreenUtils.ScreenBottom)
+            {
+                Camera.main.GetComponent<BallSpawner>().SpawnBall();
+                HUD.ReduceBallsLeft();
+            }
+            Destroy(gameObject);
+        }
+    }
+
+    /// <summary>
+    /// Starts the ball moving
+    /// </summary>
+    void StartMoving()
+    {
+        // get the ball moving
+        float angle = -90 * Mathf.Deg2Rad;
+        Vector2 force = new Vector2(
+            ConfigurationUtils.BallImpulseForce * Mathf.Cos(angle),
+            ConfigurationUtils.BallImpulseForce * Mathf.Sin(angle));
+        GetComponent<Rigidbody2D>().AddForce(force);
+    }
 
     /// <summary>
     /// Sets the ball direction to the given direction
@@ -65,30 +93,5 @@ public class Ball : MonoBehaviour
         Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
         float speed = rb2d.velocity.magnitude;
         rb2d.velocity = direction * speed;
-    }
-
-    // get the ball moving
-    void StartMoving()
-    {
-        float angle = -90 * Mathf.Deg2Rad;
-        Vector2 force = new Vector2(
-            ConfigurationUtils.BallImpulseForce * Mathf.Cos(angle),
-            ConfigurationUtils.BallImpulseForce * Mathf.Sin(angle));
-        GetComponent<Rigidbody2D>().AddForce(force);
-    }
-
-    private void OnBecameInvisible()
-    {
-        
-        hud.BallLeft(-1);
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Bottom")
-        {
-            Destroy(gameObject);
-            spawnBall.SpawnBall();
-        }
     }
 }
