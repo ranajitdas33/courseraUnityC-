@@ -108,7 +108,8 @@ public class Timer : MonoBehaviour
     public void AddTime(float addTime)
     {
         Debug.Log("ADD TIME");
-        addTime += 2;
+        
+        addTime *= Time.deltaTime;
     }
 
     #endregion

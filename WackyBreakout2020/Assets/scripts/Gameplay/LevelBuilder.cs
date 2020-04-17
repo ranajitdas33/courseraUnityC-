@@ -64,8 +64,11 @@ public class LevelBuilder : MonoBehaviour
 	/// </summary>
 	void Update()
 	{
-		
-	}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            MenuManager.GoToMenu(MenuName.Pause);
+        }
+    }
 
     /// <summary>
     /// Places a randomly-selected block at the given position

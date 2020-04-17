@@ -21,13 +21,13 @@ public class BallSpawner : MonoBehaviour
     Vector2 spawnLocationMax;
 
        // speedUp timer
-    Timer speedUpTimer;
+    //Timer speedUpTimer;
 
-    bool isSpeeding = false;
+    //bool isSpeeding = false;
 
-    Rigidbody2D rb2d;
+    //Rigidbody2D rb2d;
 
-    GameObject ballAll;
+    //GameObject ballAll;
 
     /// <summary>
     /// Use this for initialization
@@ -59,11 +59,11 @@ public class BallSpawner : MonoBehaviour
         SpawnBall();
 
         // speedUp Timer refrence
-        speedUpTimer = gameObject.AddComponent<Timer>();
-        speedUpTimer.Duration = ConfigurationUtils.SpeedUpEffectDuration;
+        //speedUpTimer = gameObject.AddComponent<Timer>();
+        //speedUpTimer.Duration = ConfigurationUtils.SpeedUpEffectDuration;
 
-        rb2d = GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody2D>();
-        ballAll = GameObject.Find("Ball");
+       // rb2d = GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody2D>();
+        //ballAll = GameObject.Find("Ball");
     }
 	
 	/// <summary>
@@ -86,7 +86,14 @@ public class BallSpawner : MonoBehaviour
         {
             SpawnBall();
         }
-	}
+
+        //// reduce speed after the timer runs out
+        //if (speedUpTimer.Finished && isSpeeding)
+        //{
+        //    rb2d.velocity /= 2;
+        //    isSpeeding = false;
+        //}
+    }
 
     /// <summary>
     /// Spawns a ball
@@ -115,27 +122,38 @@ public class BallSpawner : MonoBehaviour
             Random.value * spawnRange;
     }
 
-    public virtual void AddBonusSpeed()
-    {
+    //public virtual void AddBonusSpeed()
+    //{
 
-        Debug.Log("SPEED the ball ...");
+    //    Debug.Log("SPEED the ball ...");
 
-        // if ball already has bonus speed
-        if (isSpeeding)
-        {
-            Debug.Log("IF");
-            speedUpTimer.AddTime(ConfigurationUtils.SpeedUpEffectDuration);
-        }
-        // if the timer hasn't started and the balls not speeding
-        else if (!isSpeeding && !speedUpTimer.Running)
-        {
-            //rb2d = GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody2D>().velocity *= 5;
-            Debug.Log("ELSE");
-            ballAll = GameObject.Find("Ball");
-            ballAll.GetComponent<Rigidbody2D>().velocity *= 5;
-            //rb2d.velocity *= 5;
-            isSpeeding = true;
-            speedUpTimer.Run();
-        }
-    }
+    //    //rb2d = GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody2D>();
+    //    //rb2d.velocity *= 5;
+    //    //isSpeeding = true;
+    //    //speedUpTimer.Run();
+    //    //OnBecameVisible();
+    //    // if ball already has bonus speed
+    //    if (isSpeeding)
+    //    {
+    //        Debug.Log("IF");
+    //        //speedUpTimer.AddTime(ConfigurationUtils.SpeedUpEffectDuration);
+    //        speedUpTimer.AddTime(5f);
+    //    }
+    //    // if the timer hasn't started and the balls not speeding
+    //    else if (!isSpeeding && !speedUpTimer.Running)
+    //    {
+    //        rb2d = GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody2D>();
+    //        Debug.Log("ELSE");
+    //        //ballAll = GameObject.Find("Ball");
+    //        //rb2d = ballAll.GetComponent<Rigidbody2D>();
+    //        rb2d.velocity *= 5;
+    //        isSpeeding = true;
+    //        speedUpTimer.Run();
+    //    }
+    //}
+
+    //private void OnBecameVisible()
+    //{
+    //    GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody2D>().velocity *= 10;
+    //}
 }

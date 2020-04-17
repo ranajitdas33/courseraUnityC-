@@ -15,8 +15,9 @@ public class PickupBlock : Block
     Paddle paddle;
     GameObject paddleObj;
 
-    BallSpawner ball;
-    
+    //BallSpawner ball;
+    Ball ball;
+    GameObject ballObj;
 
     PickupEffect effect;
 
@@ -27,8 +28,10 @@ public class PickupBlock : Block
 	{
         paddleObj = GameObject.FindGameObjectWithTag("Paddle");
         paddle = paddleObj.GetComponent<Paddle>();
-        ball = Camera.main.GetComponent<BallSpawner>();
-        
+        //ball = Camera.main.GetComponent<BallSpawner>();
+
+        ballObj = GameObject.FindGameObjectWithTag("Ball");
+        ball = ballObj.GetComponent<Ball>();
 
         // set points
         points = ConfigurationUtils.PickupBlockPoints;
@@ -75,6 +78,7 @@ public class PickupBlock : Block
         }
         else if (effect == PickupEffect.Speedup)
         {
+            collision.gameObject.GetComponent<Ball>().AddBonusSpeed();
             ball.AddBonusSpeed();
         }
     }

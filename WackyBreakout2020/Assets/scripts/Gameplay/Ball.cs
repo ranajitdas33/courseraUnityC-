@@ -15,11 +15,15 @@ public class Ball : MonoBehaviour
 
     Rigidbody2D rb2d;
 
+    Timer speedUpTimer;
+    bool isSpeeding = false;
+
     /// <summary>
     /// Use this for initialization
     /// </summary>
     void Start()
 	{
+        //rb2d = GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody2D>();
         rb2d = GetComponent<Rigidbody2D>();
         // start move timer
         moveTimer = gameObject.AddComponent<Timer>();
@@ -31,8 +35,9 @@ public class Ball : MonoBehaviour
         deathTimer.Duration = ConfigurationUtils.BallLifeSeconds;
         deathTimer.Run();
 
-       
-        
+        speedUpTimer = gameObject.AddComponent<Timer>();
+        speedUpTimer.Duration = ConfigurationUtils.SpeedUpEffectDuration;
+
     }
 
     /// <summary>
@@ -45,6 +50,8 @@ public class Ball : MonoBehaviour
         {
             moveTimer.Stop();
             StartMoving();
+            Time.timeScale = 1;
+            //AddBonusSpeed();
         }
 
 		// die when time is up
@@ -54,7 +61,14 @@ public class Ball : MonoBehaviour
             Camera.main.GetComponent<BallSpawner>().SpawnBall();
             Destroy(gameObject);
         }
-	}
+
+        if (speedUpTimer.Finished && isSpeeding)
+        {
+            Time.timeScale = 1;
+            rb2d.velocity /= 2;
+            isSpeeding = false;
+        }
+    }
 
     /// <summary>
     /// Spawn new ball and destroy self when out of game
@@ -100,6 +114,29 @@ public class Ball : MonoBehaviour
         rb2d.velocity = direction * speed;
     }
 
-    
+    public void AddBonusSpeed()
+    {
+        Debug.Log("ADD SPEED");
 
+        // if ball already has bonus speed
+        if (isSpeeding)
+        {
+            Debug.Log("IF");
+            //rb2d.velocity *= 7;
+            //isSpeeding = true;
+            //speedUpTimer.Run();
+            Time.timeScale = 1;
+            speedUpTimer.AddTime(ConfigurationUtils.SpeedUpEffectDuration);
+        }
+        // if the timer hasn't started and the balls not speeding
+
+        else if (speedUpTimer !=null && !isSpeeding && !speedUpTimer.Running)
+        {
+            Debug.Log("ELSE");
+            Time.timeScale = 3;
+            rb2d.velocity *= 2;
+            isSpeeding = true;
+            speedUpTimer.Run();
+        }
+    }
 }
