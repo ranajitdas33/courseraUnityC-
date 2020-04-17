@@ -105,5 +105,11 @@ public class Timer : MonoBehaviour
         running = false;
     }
 
-	#endregion
+    public void AddTime(float addTime)
+    {
+        Debug.Log("ADD TIME");
+        addTime += 2;
+    }
+
+    #endregion
 }

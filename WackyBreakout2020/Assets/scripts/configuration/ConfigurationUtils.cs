@@ -132,6 +132,11 @@ public static class ConfigurationUtils
         get { return configurationData.BallsPerGame; }    
     }
 
+    public static float SpeedUpEffectDuration
+    {
+        get { return configurationData.SpeedUpEffectDuration; }
+    }
+
     #endregion
 
     /// <summary>

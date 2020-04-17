@@ -20,10 +20,19 @@ public class BallSpawner : MonoBehaviour
     Vector2 spawnLocationMin;
     Vector2 spawnLocationMax;
 
-	/// <summary>
-	/// Use this for initialization
-	/// </summary>
-	void Start()
+       // speedUp timer
+    Timer speedUpTimer;
+
+    bool isSpeeding = false;
+
+    Rigidbody2D rb2d;
+
+    GameObject ballAll;
+
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
+    void Start()
 	{
         // spawn and destroy ball to calculate
         // spawn location min and max
@@ -48,7 +57,14 @@ public class BallSpawner : MonoBehaviour
 
         // spwan first ball in game
         SpawnBall();
-	}
+
+        // speedUp Timer refrence
+        speedUpTimer = gameObject.AddComponent<Timer>();
+        speedUpTimer.Duration = ConfigurationUtils.SpeedUpEffectDuration;
+
+        rb2d = GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody2D>();
+        ballAll = GameObject.Find("Ball");
+    }
 	
 	/// <summary>
 	/// Update is called once per frame
@@ -97,5 +113,29 @@ public class BallSpawner : MonoBehaviour
     {
         return ConfigurationUtils.MinSpawnSeconds +
             Random.value * spawnRange;
+    }
+
+    public virtual void AddBonusSpeed()
+    {
+
+        Debug.Log("SPEED the ball ...");
+
+        // if ball already has bonus speed
+        if (isSpeeding)
+        {
+            Debug.Log("IF");
+            speedUpTimer.AddTime(ConfigurationUtils.SpeedUpEffectDuration);
+        }
+        // if the timer hasn't started and the balls not speeding
+        else if (!isSpeeding && !speedUpTimer.Running)
+        {
+            //rb2d = GameObject.FindGameObjectWithTag("Ball").GetComponent<Rigidbody2D>().velocity *= 5;
+            Debug.Log("ELSE");
+            ballAll = GameObject.Find("Ball");
+            ballAll.GetComponent<Rigidbody2D>().velocity *= 5;
+            //rb2d.velocity *= 5;
+            isSpeeding = true;
+            speedUpTimer.Run();
+        }
     }
 }

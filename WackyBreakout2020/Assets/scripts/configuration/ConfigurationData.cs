@@ -27,6 +27,7 @@ public class ConfigurationData
     float freezerBlockProbability = 0.05f;
     float speedupBlockProbability = 0.05f;
     int ballsPerGame = 5;
+    float speedUpEffectDuration = 5;
 
     #endregion
 
@@ -153,6 +154,11 @@ public class ConfigurationData
         get { return ballsPerGame; }    
     }
 
+    public float SpeedUpEffectDuration
+    {
+        get { return speedUpEffectDuration; }
+    }
+
     #endregion
 
     #region Constructor
@@ -220,5 +226,6 @@ public class ConfigurationData
         freezerBlockProbability = float.Parse(values[10]) / 100;
         speedupBlockProbability = float.Parse(values[11]) / 100;
         ballsPerGame = int.Parse(values[12]);
+        speedUpEffectDuration = float.Parse(values[13]);
     }
 }

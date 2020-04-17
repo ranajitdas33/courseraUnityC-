@@ -24,8 +24,8 @@ public class Paddle : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
         halfColliderWidth = bc2d.size.x / 2;
-        halfColliderHeight = bc2d.size.y / 2;
-	}
+        halfColliderHeight = bc2d.size.y / 2;   
+    }
 	
 	/// <summary>
 	/// Update is called once per frame
@@ -38,10 +38,11 @@ public class Paddle : MonoBehaviour
     /// <summary>
     /// FixedUpdate is called 50 times per second
     /// </summary>
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         // move for horizontal input
         float horizontalInput = Input.GetAxis("Horizontal");
+        
         if (horizontalInput != 0)
         {
             Vector2 position = rb2d.position;
@@ -50,6 +51,7 @@ public class Paddle : MonoBehaviour
             position.x = CalculateClampedX(position.x);
             rb2d.MovePosition(position);
         }
+
     }
 
     /// <summary>
@@ -107,5 +109,19 @@ public class Paddle : MonoBehaviour
         // on top collisions, both contact points are at the same y location
         ContactPoint2D[] contacts = coll.contacts;
         return Mathf.Abs(contacts[0].point.y - contacts[1].point.y) < tolerance;
+    }
+
+    // freeze paddle
+    public virtual void FreezePaddle()
+    {
+        StartCoroutine(WaitForSec());
+    }
+
+    // freeze paddle duration
+    private IEnumerator WaitForSec()
+    {
+        this.gameObject.GetComponent<Paddle>().enabled = false;
+        yield return new WaitForSeconds(6);
+        this.gameObject.GetComponent<Paddle>().enabled = true;
     }
 }

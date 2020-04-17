@@ -13,11 +13,14 @@ public class Ball : MonoBehaviour
     // death timer
     Timer deathTimer;
 
-	/// <summary>
-	/// Use this for initialization
-	/// </summary>
-	void Start()
+    Rigidbody2D rb2d;
+
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
+    void Start()
 	{
+        rb2d = GetComponent<Rigidbody2D>();
         // start move timer
         moveTimer = gameObject.AddComponent<Timer>();
         moveTimer.Duration = 1;
@@ -27,6 +30,9 @@ public class Ball : MonoBehaviour
         deathTimer = gameObject.AddComponent<Timer>();
         deathTimer.Duration = ConfigurationUtils.BallLifeSeconds;
         deathTimer.Run();
+
+       
+        
     }
 
     /// <summary>
@@ -77,10 +83,9 @@ public class Ball : MonoBehaviour
     {
         // get the ball moving
         float angle = -90 * Mathf.Deg2Rad;
-        Vector2 force = new Vector2(
-            ConfigurationUtils.BallImpulseForce * Mathf.Cos(angle),
+        Vector2 force = new Vector2(ConfigurationUtils.BallImpulseForce * Mathf.Cos(angle),
             ConfigurationUtils.BallImpulseForce * Mathf.Sin(angle));
-        GetComponent<Rigidbody2D>().AddForce(force);
+        rb2d.AddForce(force);
     }
 
     /// <summary>
@@ -90,8 +95,11 @@ public class Ball : MonoBehaviour
     public void SetDirection(Vector2 direction)
     {
         // get current rigidbody speed
-        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
+        //Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
         float speed = rb2d.velocity.magnitude;
         rb2d.velocity = direction * speed;
     }
+
+    
+
 }
