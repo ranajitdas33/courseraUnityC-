@@ -17,11 +17,11 @@ public class LevelBuilder : MonoBehaviour
     [SerializeField]
     GameObject prefabPickupBlock;
 
-	/// <summary>
-	/// Use this for initialization
-	/// </summary>
-	void Start()
-	{
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
+    void Start()
+    {
         Instantiate(prefabPaddle);
 
         // retrieve block size
@@ -57,15 +57,15 @@ public class LevelBuilder : MonoBehaviour
             currentPosition.x = leftBlockOffset;
             currentPosition.y += blockHeight;
         }
-	}
-	
-	/// <summary>
-	/// Update is called once per frame
-	/// </summary>
-	void Update()
-	{
-		
-	}
+    }
+
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    void Update()
+    {
+
+    }
 
     /// <summary>
     /// Places a randomly-selected block at the given position
@@ -79,7 +79,7 @@ public class LevelBuilder : MonoBehaviour
             Instantiate(prefabStandardBlock, position, Quaternion.identity);
         }
         else if (randomBlockType <
-                 (ConfigurationUtils.StandardBlockProbability + ConfigurationUtils.BonusBlockProbability))
+            (ConfigurationUtils.StandardBlockProbability + ConfigurationUtils.BonusBlockProbability))
         {
             Instantiate(prefabBonusBlock, position, Quaternion.identity);
         }

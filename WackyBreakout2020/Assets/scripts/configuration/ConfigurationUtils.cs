@@ -37,7 +37,7 @@ public static class ConfigurationUtils
     {
         get { return configurationData.BallLifeSeconds; }
     }
-        
+
     /// <summary>
     /// Gets the minimum number of seconds for a ball spawn
     /// </summary>
@@ -64,7 +64,7 @@ public static class ConfigurationUtils
     {
         get { return configurationData.StandardBlockPoints; }    
     }
-        
+
     /// <summary>
     /// Gets the number of points a bonus block is worth
     /// </summary>
@@ -132,9 +132,33 @@ public static class ConfigurationUtils
         get { return configurationData.BallsPerGame; }    
     }
 
-    public static float SpeedUpEffectDuration
+    /// <summary>
+    /// Gets the duration of the freezer effect
+    /// in seconds
+    /// </summary>
+    /// <value>freezer seconds</value>
+    public static float FreezerSeconds
     {
-        get { return configurationData.SpeedUpEffectDuration; }
+        get { return configurationData.FreezerSeconds; }    
+    }
+        
+    /// <summary>
+    /// Gets the speedup factor
+    /// </summary>
+    /// <value>speedup factor</value>
+    public static float SpeedupFactor
+    {
+        get { return configurationData.SpeedupFactor; }    
+    }
+
+    /// <summary>
+    /// Gets the duration of the speedup effect
+    /// in seconds
+    /// </summary>
+    /// <value>speedup seconds</value>
+    public static float SpeedupSeconds
+    {
+        get { return configurationData.SpeedupSeconds; }    
     }
 
     #endregion

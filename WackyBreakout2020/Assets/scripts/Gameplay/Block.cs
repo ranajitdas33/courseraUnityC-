@@ -9,21 +9,21 @@ public class Block : MonoBehaviour
 {
     protected int points;
 
-	/// <summary>
-	/// Use this for initialization
-	/// </summary>
-	void Start()
-	{
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
+    void Start()
+    {
 
-	}
-	
-	/// <summary>
-	/// Update is called once per frame
-	/// </summary>
-	void Update()
-	{
-		
-	}
+    }
+
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    void Update()
+    {
+
+    }
 
     /// <summary>
     /// Destroys the block on collision with a ball

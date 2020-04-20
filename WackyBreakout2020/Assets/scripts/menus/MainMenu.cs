@@ -13,23 +13,15 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void HandlePlayButtonOnClickEvent()
     {
-        SceneManager.LoadScene("gameplay");
-        Time.timeScale = 1;
+        SceneManager.LoadScene("Gameplay");
     }
 
-    // help menu
+    /// <summary>
+    /// Handles the on click event from the help button
+    /// </summary>
     public void HandleHelpButtonOnClickEvent()
     {
-        // load help menu
         MenuManager.GoToMenu(MenuName.Help);
-    }
-
-    // pause 
-    public void HandlePauseButtonOnClickEvent()
-    {
-        // unpause game and destroy menu
-        Time.timeScale = 0;
-        MenuManager.GoToMenu(MenuName.Pause);
     }
 
     /// <summary>
@@ -39,4 +31,4 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
-}
+} 

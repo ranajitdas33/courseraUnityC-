@@ -27,7 +27,9 @@ public class ConfigurationData
     float freezerBlockProbability = 0.05f;
     float speedupBlockProbability = 0.05f;
     int ballsPerGame = 5;
-    float speedUpEffectDuration = 5;
+    float freezerSeconds = 2;
+    float speedupFactor = 2;
+    float speedupSeconds = 2;
 
     #endregion
 
@@ -95,7 +97,7 @@ public class ConfigurationData
     {
         get { return bonusBlockPoints; }    
     }
-        
+
     /// <summary>
     /// Gets the number of points a pickup block is worth
     /// </summary>
@@ -114,7 +116,7 @@ public class ConfigurationData
     {
         get { return standardBlockProbability; }    
     }
-        
+
     /// <summary>
     /// Gets the probability that a bonus block
     /// will be added to the level
@@ -154,9 +156,33 @@ public class ConfigurationData
         get { return ballsPerGame; }    
     }
 
-    public float SpeedUpEffectDuration
+    /// <summary>
+    /// Gets the duration of the freezer effect
+    /// in seconds
+    /// </summary>
+    /// <value>freezer seconds</value>
+    public float FreezerSeconds
     {
-        get { return speedUpEffectDuration; }
+        get { return freezerSeconds; }    
+    }
+
+    /// <summary>
+    /// Gets the speedup factor
+    /// </summary>
+    /// <value>speedup factor</value>
+    public float SpeedupFactor
+    {
+        get { return speedupFactor; }    
+    }
+
+    /// <summary>
+    /// Gets the duration of the speedup effect
+    /// in seconds
+    /// </summary>
+    /// <value>speedup seconds</value>
+    public float SpeedupSeconds
+    {
+        get { return speedupSeconds; }    
     }
 
     #endregion
@@ -226,6 +252,8 @@ public class ConfigurationData
         freezerBlockProbability = float.Parse(values[10]) / 100;
         speedupBlockProbability = float.Parse(values[11]) / 100;
         ballsPerGame = int.Parse(values[12]);
-        speedUpEffectDuration = float.Parse(values[13]);
+        freezerSeconds = float.Parse(values[13]);
+        speedupFactor = float.Parse(values[14]);
+        speedupSeconds = float.Parse(values[15]);
     }
 }

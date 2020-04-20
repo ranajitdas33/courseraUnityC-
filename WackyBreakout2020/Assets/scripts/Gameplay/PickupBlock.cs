@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// A pickup block
@@ -12,37 +13,51 @@ public class PickupBlock : Block
     [SerializeField]
     Sprite speedupSprite;
 
-    Paddle paddle;
-    GameObject paddleObj;
-
-    BallSpawner ball;
-    
-
+    // effect-specific values
     PickupEffect effect;
+    float duration;
+    FreezerEffectActivated freezerEffectActivated;
+    float speedupFactor;
+    SpeedupEffectActivated speedupEffectActivated;
 
-	/// <summary>
-	/// Use this for initialization
-	/// </summary>
-	void Start()
-	{
-        paddleObj = GameObject.FindGameObjectWithTag("Paddle");
-        paddle = paddleObj.GetComponent<Paddle>();
-        ball = Camera.main.GetComponent<BallSpawner>();
-        
-
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
+    void Start()
+    {
         // set points
         points = ConfigurationUtils.PickupBlockPoints;
-	}
-	
-	/// <summary>
-	/// Update is called once per frame
-	/// </summary>
-	void Update()
-	{
-		
-	}
+    }
 
-	/// <summary>
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    void Update()
+    {
+
+    }
+
+    /// <summary>
+    /// Invokes the pickup effect event and destroys the block on collision with a ball
+    /// </summary>
+    /// <param name="coll">Coll.</param>
+    override protected void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.CompareTag("Ball"))
+        {
+            if (effect == PickupEffect.Freezer)
+            {
+                freezerEffectActivated.Invoke(duration);
+            }
+            else if (effect == PickupEffect.Speedup)
+            {
+                speedupEffectActivated.Invoke(duration, speedupFactor);
+            }
+            base.OnCollisionEnter2D(coll);
+        }
+    }
+
+    /// <summary>
     /// Sets the effect for the pickup
     /// </summary>
     /// <value>pickup effect</value>
@@ -52,30 +67,41 @@ public class PickupBlock : Block
         {
             effect = value;
 
-            // set sprite
+            // set sprite and duration
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
             if (effect == PickupEffect.Freezer)
             {
                 spriteRenderer.sprite = freezerSprite;
+                duration = ConfigurationUtils.FreezerSeconds;
+                freezerEffectActivated = new FreezerEffectActivated();
+                EventManager.AddFreezerEffectInvoker(this);
             }
             else
             {
                 spriteRenderer.sprite = speedupSprite;
+                duration = ConfigurationUtils.SpeedupSeconds;
+                speedupFactor = ConfigurationUtils.SpeedupFactor;
+                speedupEffectActivated = new SpeedupEffectActivated();
+                EventManager.AddSpeedupEffectInvoker(this);
             }
         }
     }
 
-    override protected void OnCollisionEnter2D(Collision2D collision)
+    /// <summary>
+    /// Adds the given listener to the freezer effect activated event
+    /// </summary>
+    /// <param name="listener">listener</param>
+    public void AddFreezerEffectListener(UnityAction<float> listener)
     {
-        base.OnCollisionEnter2D(collision);
+        freezerEffectActivated.AddListener(listener);
+    }
 
-        if (effect == PickupEffect.Freezer)
-        {
-            paddle.FreezePaddle();
-        }
-        else if (effect == PickupEffect.Speedup)
-        {
-            ball.AddBonusSpeed();
-        }
+    /// <summary>
+    /// Adds the given listener to the speedup effect activated event
+    /// </summary>
+    /// <param name="listener">listener</param>
+    public void AddSpeedupEffectListener(UnityAction<float, float> listener)
+    {
+        speedupEffectActivated.AddListener(listener);
     }
 }

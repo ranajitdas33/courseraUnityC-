@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Game menus
+/// The menus in the game
 /// </summary>
 public enum MenuName
 {
+    Help,
     Main,
-    Pause,
-    Help
+    Pause
 }

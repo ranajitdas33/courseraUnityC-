@@ -37,16 +37,4 @@ public class PauseMenu : MonoBehaviour
         Destroy(gameObject);
         MenuManager.GoToMenu(MenuName.Main);
     }
-
-    // open help menu
-    public void HandleHelpButtonOnClickEvent()
-    {       
-        MenuManager.GoToMenu(MenuName.Help);
-    }
-
-    // close help menu
-    public void HandleCloseButtonOnClickEvent()
-    { 
-        Destroy(gameObject);
-    }
 }
