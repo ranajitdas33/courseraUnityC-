@@ -24,7 +24,12 @@ public class PauseMenu : MonoBehaviour
     {
         // unpause game and destroy menu
         Time.timeScale = 1;
-        Destroy(gameObject);
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("PauseMenu");
+        foreach (GameObject target in gameObjects)
+        {
+            GameObject.Destroy(target);
+        }
+        //Destroy(gameObject);
     }
 
     /// <summary>
