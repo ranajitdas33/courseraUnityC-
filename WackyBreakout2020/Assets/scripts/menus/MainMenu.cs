@@ -8,15 +8,6 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class MainMenu : MonoBehaviour
 {
-
-    //private void Update()
-    //{
-    //    // pause game on escape key
-    //    if (Input.GetKeyDown(KeyCode.Escape))
-    //    {
-    //        MenuManager.GoToMenu(MenuName.Pause);
-    //    }
-    //}
     /// <summary>
     /// Handles the on click event from the play button
     /// </summary>
