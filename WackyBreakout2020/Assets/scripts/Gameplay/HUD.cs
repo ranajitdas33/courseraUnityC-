@@ -20,14 +20,21 @@ public class HUD : MonoBehaviour
     static int ballsLeft;
     const string BallsLeftPrefix = "Balls Left: ";
 
+    [SerializeField]
+    Text finalScoreText;
+
+    int blockCountInSceneRef;
+
     #endregion
+
 
     /// <summary>
     /// Use this for initialization
     /// </summary>
     void Start()
     {
-		// initialize score text
+        
+        // initialize score text
         scoreText = GameObject.FindGameObjectWithTag("ScoreText").GetComponent<Text>();
 		scoreText.text = ScorePrefix + score;
 
@@ -40,7 +47,18 @@ public class HUD : MonoBehaviour
         EventManager.AddListener(EventName.ReduceBallsLeftEvent, ReduceBallsLeft);
     }
 
+    private void Update()
+    {
 
+        //finalScore = score;
+        finalScoreText.text = score.ToString();
+        finalScoreText.GetComponent<Text>().enabled = false;
+
+        if (LevelBuilder.blockCountInScene == 0)
+        {
+            finalScoreText.GetComponent<Text>().enabled = true;
+        }
+    }
     #region Public methods
 
     /// <summary>
@@ -60,6 +78,12 @@ public class HUD : MonoBehaviour
     {
         ballsLeft--;
         ballsLeftText.text = BallsLeftPrefix + ballsLeft;
+
+        if (ballsLeft == 0)
+        {
+            Debug.Log("GAMEOVER");
+            MenuManager.GoToMenu(MenuName.Gameover);
+        }
     }
 
 	#endregion

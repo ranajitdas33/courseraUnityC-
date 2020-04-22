@@ -31,6 +31,20 @@ public static class MenuManager
                 // instantiate prefab
                 Object.Instantiate(Resources.Load("PauseMenu"));
                 break;
+
+            case MenuName.Gameover:
+
+                // instantiate prefab
+                Object.Instantiate(Resources.Load("GameOver"));
+                
+                break;
+
+            case MenuName.Win:
+
+                // instantiate prefab
+                Object.Instantiate(Resources.Load("Win"));
+
+                break;
         }
     }
 }

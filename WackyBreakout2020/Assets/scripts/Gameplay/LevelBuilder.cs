@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 /// <summary>
 /// Builds a level
 /// </summary>
@@ -17,11 +17,20 @@ public class LevelBuilder : MonoBehaviour
     [SerializeField]
     GameObject prefabPickupBlock;
 
+
+    public static int blockCountInScene;
+
+    
+
     /// <summary>
     /// Use this for initialization
     /// </summary>
     void Start()
     {
+        //wackyBreakoutScript = Camera.main.GetComponent<WackyBreakout>().enabled = true;
+        //finalScoreActivate = GameObject.FindGameObjectWithTag("Final").SetActive(false);
+
+        //finalScoreActivate = Object.Find<Text>("FinalScore");
         Instantiate(prefabPaddle);
 
         // retrieve block size
@@ -64,8 +73,28 @@ public class LevelBuilder : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // end game when last block is destroyed
+        blockCountInScene = GameObject.FindGameObjectsWithTag("Block").Length;
 
+        if (blockCountInScene == 0)
+        {
+            MenuManager.GoToMenu(MenuName.Win);
+
+            Camera.main.GetComponent<LevelBuilder>().enabled = false;
+        }
+
+        // stop the pause menu prefab from instantiating
+        if (Time.timeScale == 0)
+        {            
+            Camera.main.GetComponent<WackyBreakout>().enabled = false;
+        }
+
+        if (GameObject.FindGameObjectWithTag("Finish") != null)
+        {
+            GameObject.FindGameObjectWithTag("Final").SetActive(true);
+        }
     }
+
 
     /// <summary>
     /// Places a randomly-selected block at the given position

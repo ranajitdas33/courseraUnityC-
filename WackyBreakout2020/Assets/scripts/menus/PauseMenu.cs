@@ -8,6 +8,7 @@ using UnityEngine;
 /// </summary>
 public class PauseMenu : MonoBehaviour
 {
+    bool wackyBreakout;
     /// <summary>
     /// Use this for initialization
     /// </summary>
@@ -15,6 +16,7 @@ public class PauseMenu : MonoBehaviour
     {   
         // pause the game when added to the scene
         Time.timeScale = 0;
+        wackyBreakout = Camera.main.GetComponent<WackyBreakout>().enabled = true;
     }
 
     /// <summary>
@@ -25,6 +27,7 @@ public class PauseMenu : MonoBehaviour
         // unpause game and destroy menu
         Time.timeScale = 1;
         Destroy(gameObject);
+        Camera.main.GetComponent<WackyBreakout>().enabled = true;
     }
 
     /// <summary>
