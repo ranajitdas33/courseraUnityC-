@@ -81,7 +81,7 @@ public class Ball : MonoBehaviour
             if (transform.position.y - halfColliderHeight < ScreenUtils.ScreenBottom)
             {
                 Camera.main.GetComponent<BallSpawner>().SpawnBall();
-                HUD.ReduceBallsLeft();
+                HUD.ReduceBallsLeft(5);
             }
             Destroy(gameObject);
         }
@@ -151,5 +151,10 @@ public class Ball : MonoBehaviour
         this.speedupFactor = speedupFactor;
         speedupTimer.Duration = duration;
         speedupTimer.Run();
+    }
+
+    virtual protected void ReduceBallsLeftListener()
+    {
+
     }
 }

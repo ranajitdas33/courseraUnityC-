@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,12 +13,37 @@ public static class EventManager
     static List<UnityAction<float>> freezerEffectListeners = 
         new List<UnityAction<float>>();
 
+
     // speedupEffectActivated support
     static List<PickupBlock> speedupEffectInvokers = new List<PickupBlock>();
     static List<UnityAction<float, float>> speedupEffectListeners = 
         new List<UnityAction<float, float>>();
-    
+
+    static Dictionary<EventName, List<IntEventInvoker>> invokers =
+        new Dictionary<EventName, List<IntEventInvoker>>();
+    static Dictionary<EventName, List<UnityAction<int>>> listeners =
+        new Dictionary<EventName, List<UnityAction<int>>>();
+
     #region Public methods
+
+
+    public static void Initialize()
+    {
+        // create empty lists for all the dictionary entries
+        foreach (EventName name in Enum.GetValues(typeof(EventName)))
+        {
+            if (!invokers.ContainsKey(name))
+            {
+                invokers.Add(name, new List<IntEventInvoker>());
+                listeners.Add(name, new List<UnityAction<int>>());
+            }
+            else
+            {
+                invokers[name].Clear();
+                listeners[name].Clear();
+            }
+        }
+    }
 
     /// <summary>
     /// Adds the given script as a freezer effect invoker
@@ -74,6 +99,26 @@ public static class EventManager
         {
             invoker.AddSpeedupEffectListener(listener);
         }
+    }
+
+    public static void AddListener(EventName eventName, UnityAction<int> listener)
+    {
+        // add as listener to all invokers and add new listener to dictionary
+        foreach (IntEventInvoker invoker in invokers[eventName])
+        {
+            invoker.AddListener(eventName, listener);
+        }
+        listeners[eventName].Add(listener);
+    }
+
+    public static void AddInvoker(EventName eventName, IntEventInvoker invoker)
+    {
+        // add listeners to new invoker and add new invoker to dictionary
+        foreach (UnityAction<int> listener in listeners[eventName])
+        {
+            invoker.AddListener(eventName, listener);
+        }
+        invokers[eventName].Add(invoker);
     }
 
     #endregion

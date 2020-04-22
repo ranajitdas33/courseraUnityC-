@@ -1,20 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// A block
 /// </summary>
-public class Block : MonoBehaviour
+public class Block : IntEventInvoker
 {
     protected int points;
+    private AddPointsAddedListener unityEvent;
 
     /// <summary>
     /// Use this for initialization
     /// </summary>
     void Start()
     {
+        unityEvent = new AddPointsAddedListener();
+        EventManager.AddInvoker(EventName.PointsAddedEvent, this);
+        //EventManager.AddListener(EventName.PointsAddedEvent, AddPointsAddedListener);
+    }
 
+    private void AddPointsAddedListener(int arg0)
+    {
+        throw new NotImplementedException();
     }
 
     /// <summary>
@@ -33,6 +42,7 @@ public class Block : MonoBehaviour
     {
         if (coll.gameObject.CompareTag("Ball"))
         {
+            
             HUD.AddPoints(points);
             Destroy(gameObject);
         }

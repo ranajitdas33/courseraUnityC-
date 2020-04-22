@@ -35,24 +35,28 @@ public class HUD : MonoBehaviour
         ballsLeft = ConfigurationUtils.BallsPerGame;
         ballsLeftText = GameObject.FindGameObjectWithTag("BallsLeftText").GetComponent<Text>();
         ballsLeftText.text = BallsLeftPrefix + ballsLeft;
-	}
 
-	#region Public methods
+        EventManager.AddListener(EventName.PointsAddedEvent, AddPoints);
+        EventManager.AddListener(EventName.ReduceBallsLeftEvent, ReduceBallsLeft);
+    }
 
-	/// <summary>
-	/// Updates the score
-	/// </summary>
-	/// <param name="points">points to add</param>
-	public static void AddPoints(int points)
+
+    #region Public methods
+
+    /// <summary>
+    /// Updates the score
+    /// </summary>
+    /// <param name="points">points to add</param>
+    public static void AddPoints(int points)
     {
-		score += points;
-		scoreText.text = ScorePrefix + score;
-	}
+        score += points;
+        scoreText.text = ScorePrefix + score;
+    }
 
     /// <summary>
     /// Updates the balls left
     /// </summary>
-    public static void ReduceBallsLeft()
+    public static void ReduceBallsLeft(int ballLeft)
     {
         ballsLeft--;
         ballsLeftText.text = BallsLeftPrefix + ballsLeft;
