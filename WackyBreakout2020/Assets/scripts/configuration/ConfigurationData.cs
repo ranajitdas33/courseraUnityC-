@@ -274,35 +274,7 @@ public class ConfigurationData
 
     #endregion
 
-    /// <summary>
-    /// Sets the configuration data fields from the provided
-    /// csv string
-    /// </summary>
-    /// <param name="csvValues">csv string of values</param>
-    //void SetConfigurationDataFields(string csvValues)
-    //{
-    //    // the code below assumes we know the order in which the
-    //    // values appear in the string. We could do something more
-    //    // complicated with the names and values, but that's not
-    //    // necessary here
-    //    string[] values = csvValues.Split(',');
-    //    paddleMoveUnitsPerSecond = float.Parse(values[0]);
-    //    ballImpulseForce = float.Parse(values[1]);
-    //    ballLifeSeconds = float.Parse(values[2]);
-    //    minSpawnSeconds = float.Parse(values[3]);
-    //    maxSpawnSeconds = float.Parse(values[4]);
-    //    standardBlockPoints = int.Parse(values[5]);
-    //    bonusBlockPoints = int.Parse(values[6]);
-    //    pickupBlockPoints = int.Parse(values[7]);
-    //    standardBlockProbability = float.Parse(values[8]) / 100;
-    //    bonusBlockProbability = float.Parse(values[9]) / 100;
-    //    freezerBlockProbability = float.Parse(values[10]) / 100;
-    //    speedupBlockProbability = float.Parse(values[11]) / 100;
-    //    ballsPerGame = int.Parse(values[12]);
-    //    freezerSeconds = float.Parse(values[13]);
-    //    speedupFactor = float.Parse(values[14]);
-    //    speedupSeconds = float.Parse(values[15]);
-    //}
+    
 
     void SetDefaultValues()
     {
@@ -322,6 +294,6 @@ public class ConfigurationData
         values.Add(ConfigurationDataValueName.freezerSeconds, 2f);
         values.Add(ConfigurationDataValueName.ballsPerGame, 5);
         values.Add(ConfigurationDataValueName.speedupFactor, 2f);
-        values.Add(ConfigurationDataValueName.speedupSeconds, 2f);
+        values.Add(ConfigurationDataValueName.speedupSeconds, 4f);
     }
 }

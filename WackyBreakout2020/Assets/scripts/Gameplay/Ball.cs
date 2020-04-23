@@ -80,9 +80,11 @@ public class Ball : MonoBehaviour
                 gameObject.GetComponent<BoxCollider2D>().size.y / 2;
             if (transform.position.y - halfColliderHeight < ScreenUtils.ScreenBottom)
             {
+
                 Camera.main.GetComponent<BallSpawner>().SpawnBall();
                 HUD.ReduceBallsLeft(5);
             }
+            AudioManager.Play(AudioClipName.BallFalling);
             Destroy(gameObject);
         }
     }

@@ -79,7 +79,7 @@ public class LevelBuilder : MonoBehaviour
         if (blockCountInScene == 0)
         {
             MenuManager.GoToMenu(MenuName.Win);
-
+            AudioManager.Play(AudioClipName.Win);
             Camera.main.GetComponent<LevelBuilder>().enabled = false;
         }
 

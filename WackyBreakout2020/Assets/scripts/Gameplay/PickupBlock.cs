@@ -47,10 +47,12 @@ public class PickupBlock : Block
         {
             if (effect == PickupEffect.Freezer)
             {
+                AudioManager.Play(AudioClipName.Freeze);
                 freezerEffectActivated.Invoke(duration);
             }
             else if (effect == PickupEffect.Speedup)
             {
+                AudioManager.Play(AudioClipName.SpeedUp);
                 speedupEffectActivated.Invoke(duration, speedupFactor);
             }
             base.OnCollisionEnter2D(coll);

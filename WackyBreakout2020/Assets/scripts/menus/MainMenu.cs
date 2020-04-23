@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void HandlePlayButtonOnClickEvent()
     {
+        AudioManager.Play(AudioClipName.MenuButtonClick);
         SceneManager.LoadScene("Gameplay");
     }
 
@@ -21,6 +22,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void HandleHelpButtonOnClickEvent()
     {
+        AudioManager.Play(AudioClipName.MenuButtonClick);
         MenuManager.GoToMenu(MenuName.Help);
     }
 
@@ -29,6 +31,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void HandleQuitButtonOnClickEvent()
     {
+        AudioManager.Play(AudioClipName.MenuButtonClick);
         Application.Quit();
     }
 } 

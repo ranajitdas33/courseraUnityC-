@@ -42,7 +42,7 @@ public class Block : IntEventInvoker
     {
         if (coll.gameObject.CompareTag("Ball"))
         {
-            
+            AudioManager.Play(AudioClipName.BlockHit);
             HUD.AddPoints(points);
             Destroy(gameObject);
         }

@@ -19,6 +19,7 @@ public static class EventManager
     static List<UnityAction<float, float>> speedupEffectListeners = 
         new List<UnityAction<float, float>>();
 
+    // add dictionary
     static Dictionary<EventName, List<IntEventInvoker>> invokers =
         new Dictionary<EventName, List<IntEventInvoker>>();
     static Dictionary<EventName, List<UnityAction<int>>> listeners =
@@ -101,6 +102,10 @@ public static class EventManager
         }
     }
 
+    /// <summary>
+    /// Adds the given method as a listener
+    /// </summary>
+    /// <param name="listener">listener</param>
     public static void AddListener(EventName eventName, UnityAction<int> listener)
     {
         // add as listener to all invokers and add new listener to dictionary
@@ -111,6 +116,10 @@ public static class EventManager
         listeners[eventName].Add(listener);
     }
 
+    /// <summary>
+    /// Adds the given method as a invoker
+    /// </summary>
+    /// <param name="invoker">listener</param>
     public static void AddInvoker(EventName eventName, IntEventInvoker invoker)
     {
         // add listeners to new invoker and add new invoker to dictionary

@@ -94,6 +94,7 @@ public class Paddle : MonoBehaviour
         if (coll.gameObject.CompareTag("Ball") &&
             TopCollision(coll))
         {
+            AudioManager.Play(AudioClipName.PaddleHit);
             // calculate new ball direction
             float ballOffsetFromPaddleCenter = transform.position.x -
                 coll.transform.position.x;

@@ -16,6 +16,7 @@ public class WackyBreakout : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             MenuManager.GoToMenu(MenuName.Pause);
+            AudioManager.Play(AudioClipName.MenuButtonClick);
         }
 
     }

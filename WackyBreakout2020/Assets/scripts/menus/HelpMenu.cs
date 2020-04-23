@@ -13,5 +13,6 @@ public class HelpMenu : MonoBehaviour
     public void HandleBackButtonOnClickEvent()
     {
         MenuManager.GoToMenu(MenuName.Main);
+        AudioManager.Play(AudioClipName.MenuButtonClick);
     }
 } 

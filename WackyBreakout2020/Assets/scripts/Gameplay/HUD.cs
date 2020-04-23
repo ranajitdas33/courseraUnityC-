@@ -20,10 +20,9 @@ public class HUD : MonoBehaviour
     static int ballsLeft;
     const string BallsLeftPrefix = "Balls Left: ";
 
+    // display final score
     [SerializeField]
     Text finalScoreText;
-
-    int blockCountInSceneRef;
 
     #endregion
 
@@ -43,6 +42,7 @@ public class HUD : MonoBehaviour
         ballsLeftText = GameObject.FindGameObjectWithTag("BallsLeftText").GetComponent<Text>();
         ballsLeftText.text = BallsLeftPrefix + ballsLeft;
 
+        // add listener to event
         EventManager.AddListener(EventName.PointsAddedEvent, AddPoints);
         EventManager.AddListener(EventName.ReduceBallsLeftEvent, ReduceBallsLeft);
     }
@@ -50,10 +50,11 @@ public class HUD : MonoBehaviour
     private void Update()
     {
 
-        //finalScore = score;
+        // updating score to get final score
         finalScoreText.text = score.ToString();
         finalScoreText.GetComponent<Text>().enabled = false;
 
+        // enable final score
         if (LevelBuilder.blockCountInScene == 0)
         {
             finalScoreText.GetComponent<Text>().enabled = true;
@@ -81,7 +82,10 @@ public class HUD : MonoBehaviour
 
         if (ballsLeft == 0)
         {
-            Debug.Log("GAMEOVER");
+            // play audio sfx
+            AudioManager.Play(AudioClipName.GameOver);
+            
+            // display game over message
             MenuManager.GoToMenu(MenuName.Gameover);
         }
     }
